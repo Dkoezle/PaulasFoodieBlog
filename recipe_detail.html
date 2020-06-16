@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block editsign %}
+    <a href="{% url 'recipe_edit' pk=recipe.pk %}" class="top-menu"><span class="glyphicon glyphicon-pencil"></span></a>
+{% endblock %}
+
+{% block content %}
+    <div class="recipe">
+        {% if recipe.published_date %}
+            <div class="date">
+                {{ recipe.published_date }}
+
+            </div>
+        {% endif %}
+        <h2>{{ recipe.title }}</h2><br>
+        <h4>Ernährungsform</h4>
+        <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
+        <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p><br>
+        <h4>Zubereitung</h4>
+        <p>{{ recipe.instruction|linebreaksbr }}</p>
+        <h4> Cuisine </h4>
+        <p>{{ recipe.cuisine }}</p>
+        <h4> Allergien </h4>
+        <p>{{ recipe.contained_allergen }}</p>
+    </div>
+{% endblock %}
