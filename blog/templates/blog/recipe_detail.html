@@ -19,7 +19,7 @@
         <h4>Zubereitung</h4>
         <p>{{ recipe.instruction|linebreaksbr }}</p>
         <h4> Cuisine </h4>
-        <p>{{ recipe.cuisine }}</p>
+        <p>{{ recipe.get_cuisine_display }}</p>
         <h4> Allergien </h4>
         <p>{{ recipe.contained_allergen }}</p>
     </div>
