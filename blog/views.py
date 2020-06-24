@@ -43,3 +43,8 @@ def recipe_edit(request, pk):
     else:
         form = RecipeForm(instance=recipe)
     return render(request, 'blog/recipe_edit.html', {'form': form})
+
+def recipe_cuisfilter(request, cuis):
+    cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis)
+    cuis_name = dict(Recipe.cuisine_types)[cuis]
+    return render(request, 'blog/recipe_cuisfilter.html', {'cuis_recipes': cuis_recipes, 'cuis_name': cuis_name})

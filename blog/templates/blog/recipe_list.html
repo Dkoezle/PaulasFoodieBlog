@@ -14,22 +14,35 @@
     <div class="page-header">
         <h1><a href="/">Paulas Foodie Blog</a></h1>
     </div>
-
     <div class="content container">
         <div class="row">
             <div class="col-md-8">
+
                 {% block content %}
+                <table class="cuisine-links">
+                    <tr>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='AFR' %}">Afrikanische Küche</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
+                        <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
+                    </tr>
+                </table><br>
+
                     {% for recipe in recipes %}
                         <div class="recipe">
                             <div class="properties">
                             <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>  
-                                <p>published: {{ recipe.published_date }}</p>
-                                <p>{% if recipe.is_vegan %} Vegan {% else %} &nbsp; {% endif %}</p>
-                                <p>{% if recipe.is_veggie %} Vegetarisch {% else %} &nbsp; {% endif %}</p>
+                                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
+                                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
                              </div>
-                            <p>instruction: {{ recipe.instruction|linebreaksbr }}</p>
-                            <p>cuisine: {{ recipe.cuisine }}</p>
-                            <p>allergie: {{ recipe.contained_allergen }}</p>
+                            <p>Zubereitung: {{ recipe.instruction|linebreaksbr }}</p>
+                            <p>Cuisine: {{recipe.get_cuisine_display}} </p>
+                            <p>Allergie-Freundlichkeit: {{ recipe.contained_allergen }}</p>
                         </div>
                     {% endfor %}
                 {% endblock %}
