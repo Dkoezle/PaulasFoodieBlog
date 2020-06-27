@@ -31,6 +31,18 @@
                         <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
                     </tr>
                 </table><br>
+                <table class="allergen-links">
+                    <tr>
+                        <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
+                        <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nuesse</a></td>
+                        <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
+                        <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
+                        <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Huehnereier</a></td>
+                    </tr>
+                </table><br>
 
                     {% for recipe in recipes %}
                         <div class="recipe">
