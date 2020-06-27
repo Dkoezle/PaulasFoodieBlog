@@ -48,3 +48,7 @@ def recipe_cuisfilter(request, cuis):
     cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis)
     cuis_name = dict(Recipe.cuisine_types)[cuis]
     return render(request, 'blog/recipe_cuisfilter.html', {'cuis_recipes': cuis_recipes, 'cuis_name': cuis_name})
+def recipe_allerfilter(request, aller):
+    aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), contained_allergen=aller)
+    aller_name = dict(Recipe.allergen_types)[aller]
+    return render(request, 'blog/recipe_allerfilter.html', {'aller_recipes': aller_recipes, 'aller_name': aller_name})  
