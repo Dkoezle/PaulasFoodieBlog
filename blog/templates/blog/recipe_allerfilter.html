@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+ {% block content %}
+    <table class="allergen-links">
+        <tr>
+            <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
+            <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nuesse</a></td>
+            <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
+        </tr>
+        <tr>
+            <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
+            <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
+            <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Huehnereier</a></td>
+        </tr>
+    </table><br>
+
+    <h2>Rezepte für die folgende Allergieart: {{ aller_name }} </h2>
+
+    {% for recipe in aller_recipes %}
+        <div class="recipe">
+            <div class="properties">
+            <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
+                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
+             </div>
+            <p>Zubereitung: {{ recipe.instruction|linebreaksbr }}</p>
+            <p>Cuisine: {{recipe.get_cuisine_display}} </p>
+            <p>Allergie-Freundlichkeit: {{ recipe.contained_allergen }}</p>
+        </div>
+    {% empty %}
+    <div class="recipe">
+        <br><p>Sorry, es wurden noch keine Rezepte zu dieser Kategorie veröffentlicht :(</p>
+    </div>
+    {% endfor %}
+{% endblock %} 
