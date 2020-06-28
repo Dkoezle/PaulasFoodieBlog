@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="recipe">
+    <div class="recipe_detail">
         {% if recipe.published_date %}
             <div class="date">
                 <h4>{{ recipe.published_date }}</h4>
             </div>
         {% endif %}
-        
+
         <h2>{{ recipe.title }}</h2><br>
         <h4>ERNÄHRUNGSFORM</h4>
         <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
