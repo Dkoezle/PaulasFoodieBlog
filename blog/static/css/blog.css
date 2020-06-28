@@ -11,6 +11,18 @@
     text-decoration: none;
     margin-top: 5px;
     margin-bottom: 5px;
+
+}
+
+.page-header h1 a::before {
+    content: ' ';
+    background-image: url("images/paula_icon.png");
+    background-size: contain;
+    width: 100px;
+    height:  100px;
+    display: inline-block;
+    vertical-align: middle;
+
 }
 
 .content {
