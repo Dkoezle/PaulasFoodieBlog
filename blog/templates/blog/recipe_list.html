@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300&family=Lora&family=Open+Sans:wght@300&family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300&family=Lora&family=Open+Sans&family=Sacramento&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <title>Paula's foodbook</title>
 </head>
@@ -14,7 +14,7 @@
     <div class="page-header">
         <h1><a href="/">Paula's foodbook</a></h1>
     </div>
-    <div class="content container">
+    <div class="content_container">
         <div class="row">
             <div class="col-md-8">
 
@@ -49,7 +49,7 @@
                             <div class="properties">
 
                                 <h4><p>{{ recipe.published_date }}</p></h4>
-                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>  
+                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                                 <h4>ERNÄHRUNGSFORM</h4>
                                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
                                     {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>

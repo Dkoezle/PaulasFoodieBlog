@@ -13,6 +13,21 @@
     margin-bottom: 5px;
 }
 
+}
+
+.page-header h1 a::before {
+    content: ' ';
+    background-image: url("images/paula_icon.png");
+    background-size: contain;
+    width: 100px;
+    height:  100px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+
+
 .content {
     margin-left: 40px;
 }
@@ -24,16 +39,24 @@ h2 {
     margin-bottom: 10px;
 }
 
-h3, {
+h3 {
     font-family: 'Lora', serif;
     font-size: 5pt;
-
 }
 
 h4 {
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: 13pt;
 
+}
+
+h5 {
+    font-family:'Open Sans', sans-serif;
+    font-size: 10pt;
+}
+
+.col-md-8 {
+    width: 100%;
 }
 
 .date {
@@ -56,8 +79,21 @@ h4 {
     margin-top: 20px;
 }
 
+.content_container {
+    max-height: 50px;
+    max-width: 750px;
+    overflow: : hidden;
+}
+
 .recipe {
+    margin: auto;
+    width: 750px;
+    max-height: 500px;
     margin-bottom: 50px;
+    border: 3px solid #f0e4d4;
+    border-radius: 5px;
+    padding: 10px 20px 10px;
+    overflow: auto;
 }
 
 .recipe h2 a, .recipe h2 a:visited {
