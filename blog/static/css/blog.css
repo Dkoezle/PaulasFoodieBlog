@@ -1,36 +1,43 @@
 .page-header {
-    background-image: url("images/head_filler.jpg");
-    background-color: #faf5f0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+    background-color: #f0e4d4;
     margin-top: 0;
-    padding: 55px 20px 25px 40px;
+    padding: 10px 20px 10px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: white;
-    font-size: 36pt;
+    font-family: 'Sacramento', cursive;
+    color: #000000;
+    font-size: 32pt;
     text-decoration: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .content {
     margin-left: 40px;
 }
 
-h1, h2 {
-    font-family: 'Lobster', cursive;
-    margin-bottom: 15px;
+h2 {
+    font-family: 'Lora', serif;
+    font-size: 20pt;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
-h3, h4 {
-    font-family: 'Lobster', cursive;
+h3, {
+    font-family: 'Lora', serif;
+    font-size: 5pt;
+
+}
+
+h4 {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: 13pt;
 
 }
 
 .date {
-    color: #828282;
+    color: #000000;
 }
 
 .save {
@@ -50,15 +57,11 @@ h3, h4 {
 }
 
 .recipe {
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .recipe h2 a, .recipe h2 a:visited {
     color: #000000;
-}
-
-body{
-    background-color: #faf5f0;
 }
 
 .cuisine-links {
@@ -71,3 +74,8 @@ body{
     height: 10%;
     text-align: center;
   }
+
+body{
+    background-color: white;
+}
+

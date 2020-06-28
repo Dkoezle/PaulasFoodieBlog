@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300&family=Lora&family=Open+Sans:wght@300&family=Sacramento&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    <title>Paulas Foodie Blog</title>
+    <title>Paula's foodbook</title>
 </head>
 <body>
     <div class="page-header">
-        <h1><a href="/">Paulas Foodie Blog</a></h1>
+        <h1><a href="/">Paula's foodbook</a></h1>
     </div>
     <div class="content container">
         <div class="row">
@@ -47,14 +47,17 @@
                     {% for recipe in recipes %}
                         <div class="recipe">
                             <div class="properties">
-                            <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>  
-                                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
+
+                                <h4><p>{{ recipe.published_date }}</p></h4>
+                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>  
+                                <h4>ERNÄHRUNGSFORM</h4>
                                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
                                     {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
                              </div>
-                            <p>Zubereitung: {{ recipe.instruction|linebreaksbr }}</p>
-                            <p>Cuisine: {{recipe.get_cuisine_display}} </p>
-                            <p>Allergie-Freundlichkeit: {{ recipe.contained_allergen }}</p>
+                             <p><h4>KATEGORIE</h4> {{recipe.get_cuisine_display}} </p>
+                             <h4><p>ALLERGIEN</h4> {{ recipe.contained_allergen }}</p>
+                             <h4><p>ZUBEREITUNG</h4>{{ recipe.instruction|linebreaksbr }}</p>
+
                         </div>
                     {% endfor %}
                 {% endblock %}

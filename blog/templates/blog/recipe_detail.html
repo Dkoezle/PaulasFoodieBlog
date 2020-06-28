@@ -8,19 +8,23 @@
     <div class="recipe">
         {% if recipe.published_date %}
             <div class="date">
-                {{ recipe.published_date }}
-
+                <h4>{{ recipe.published_date }}</h4>
             </div>
         {% endif %}
+        
         <h2>{{ recipe.title }}</h2><br>
-        <h4>Ernährungsform</h4>
+        <h4>ERNÄHRUNGSFORM</h4>
         <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
         <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p><br>
-        <h4>Zubereitung</h4>
+
+        <h4> KATEGORIE </h4>
+        <p>{{ recipe.get_cuisine_display }}</p>
+        <h4> ALLERGIEN </h4>
+        <h4>ZUBEREITUNG</h4>
         <p>{{ recipe.instruction|linebreaksbr }}</p><br>
-        <h4> Cuisine </h4>
-        <p>{{recipe.get_cuisine_display}}</p><br>
-        <h4> Allergien </h4>
+
         <p>{{ recipe.contained_allergen }}</p>
+        <h4>ZUBEREITUNG</h4>
+        <p>{{ recipe.instruction|linebreaksbr }}</p>
     </div>
 {% endblock %}
