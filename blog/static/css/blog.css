@@ -14,7 +14,6 @@
 }
 
 
-
 .page-header h1 a::before {
     content: ' ';
     background-image: url("images/paula_icon.png");
@@ -24,7 +23,6 @@
     display: inline-block;
     vertical-align: middle;
 }
-
 
 
 .content {
@@ -100,12 +98,35 @@ h5 {
 }
 
 .cuisine-links {
-  width: 200%;
-  height: 10%;
-  text-align: center;
+    align: center;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-size: 20px;
 }
+
+.cuisine-links a {
+    color: black;
+}
+
+.advsearch {
+    font-size: 16px;
+    line-height: 40px
+}
+
+.advsearch a::before{
+    content: ' ';
+    background-image: url("images/arrow_right.png");
+    background-size: contain;
+    width: 16px;
+    height:  17px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .allergen-links {
-    width: 200%;
+    width: 130%;
     height: 10%;
     text-align: center;
   }

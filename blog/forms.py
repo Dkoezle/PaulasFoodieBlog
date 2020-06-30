@@ -30,3 +30,9 @@ class RawRecipeForm(forms.Form):
     )
     contained_allergen = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=allergen_types)
     instruction = forms.CharField(widget=forms.Textarea())
+
+class AdvancedSearch(forms.ModelForm):
+
+    class Meta:
+        model = Recipe
+        fields = ('is_vegan', 'is_veggie', 'cuisine', 'contained_allergen')

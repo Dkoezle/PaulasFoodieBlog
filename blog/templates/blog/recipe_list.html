@@ -30,17 +30,10 @@
                         <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
                         <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
                     </tr>
-                </table><br>
-                <table class="allergen-links">
-                    <tr>
-                        <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
-                        <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nuesse</a></td>
-                        <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
-                        <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
-                        <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Huehnereier</a></td>
+                    <tr class="advsearch">
+                        <td></td>
+                        <td><a href="{% url 'advanced_search' %}">Erweiterte Suche</a></td>
+                        <td></td>
                     </tr>
                 </table><br>
 
@@ -50,14 +43,11 @@
 
                                 <h4><p>{{ recipe.published_date }}</p></h4>
                                 <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
-                                <h4>ERNÄHRUNGSFORM</h4>
                                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
-                             </div>
-                             <p><h4>KATEGORIE</h4> {{recipe.get_cuisine_display}} </p>
-                             <h4><p>ALLERGIEN</h4> {{ recipe.contained_allergen }}</p>
-                             <h4><p>ZUBEREITUNG</h4>{{ recipe.instruction|linebreaksbr }}</p>
-
+                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %} &nbsp;</p>
+                                <p><h4>KATEGORIE</h4> {{recipe.get_cuisine_display}} </p><br>
+                                <h4><p>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}</p><br>
+                            </div>
                         </div>
                     {% endfor %}
                 {% endblock %}

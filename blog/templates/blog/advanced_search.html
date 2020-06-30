@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+ {% block content %}
+<h2>Das perfekte Rezept findest du hier :) </h2>
+<table class="cuisine-links">
+    <tr>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='AFR' %}">Afrikanische Küche</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
+        <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
+    </tr>
+</table><br>
+
+<form method="POST" class="post-form">{% csrf_token %}
+     {{ form.as_p }}
+      <button type="submit" class="save btn btn-default">Search</button><br>
+ </form>
+
+{% endblock %}
