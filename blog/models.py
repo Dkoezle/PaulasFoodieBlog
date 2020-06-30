@@ -12,21 +12,21 @@ class Recipe(models.Model):
     is_veggie = models.BooleanField("Vegetarisch", default=False)
     cuisine_types = (
         ('DEF', ''),
-        ('INT', 'Internationale Kueche'),
-        ('ASI', 'Asiatische Kueche'),
-        ('AFR', 'Afrikanische Kueche'),
-        ('EUR', 'Europäische Kueche'),
-        ('AME', 'Amerikanische Kueche'),
-        ('SUA', 'Suedamerikanische Kueche'),)
+        ('INT', 'Internationale Küche'),
+        ('ASI', 'Asiatische Küche'),
+        ('AFR', 'Afrikanische Küche'),
+        ('EUR', 'Europäische Küche'),
+        ('AME', 'Amerikanische Küche'),
+        ('SUA', 'Südamerikanische Küche'),)
     cuisine = models.CharField(
         max_length=30, choices=cuisine_types, default='DEF')
     allergen_types = (
-        ("NA", "None"),
-        ("nuts", "Nuesse"),
+        ("NA", "Keine"),
+        ("nuts", "Nüsse"),
         ("glut", "Gluten"),
         ("lact", "Kuhmilch"),
         ("fish", "Fisch"),
-        ("egg", "Huehnereier"),
+        ("egg", "Hühnereier"),
     )
     contained_allergen = MultiSelectField(choices=allergen_types)
     instruction = models.TextField()
