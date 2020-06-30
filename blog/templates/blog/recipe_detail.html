@@ -16,15 +16,12 @@
         <h4>ERNÄHRUNGSFORM</h4>
         <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
         <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p><br>
-
         <h4> KATEGORIE </h4>
         <p>{{ recipe.get_cuisine_display }}</p>
         <h4> ALLERGIEN </h4>
+        <p>{{ recipe.contained_allergen }}</p>
         <h4>ZUBEREITUNG</h4>
         <p>{{ recipe.instruction|linebreaksbr }}</p><br>
 
-        <p>{{ recipe.contained_allergen }}</p>
-        <h4>ZUBEREITUNG</h4>
-        <p>{{ recipe.instruction|linebreaksbr }}</p>
     </div>
 {% endblock %}
