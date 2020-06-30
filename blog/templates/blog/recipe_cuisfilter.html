@@ -25,9 +25,9 @@
                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
                     {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
              </div>
-            <p>Zubereitung: {{ recipe.instruction|linebreaksbr }}</p>
-            <p>Cuisine: {{recipe.get_cuisine_display}} </p>
-            <p>Allergie-Freundlichkeit: {{ recipe.contained_allergen }}</p>
+            <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
+            <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
+            <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
         </div>
     {% empty %}
     <div class="recipe">
