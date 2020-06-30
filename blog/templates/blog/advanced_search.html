@@ -3,7 +3,7 @@
 
  {% block content %}
 <h2>Das perfekte Rezept findest du hier :) </h2>
-<table class="cuisine-links">
+<table class="category-links">
     <tr>
         <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
         <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
@@ -13,6 +13,17 @@
         <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
         <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
         <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nuesse</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Huehnereier</a></td>
     </tr>
 </table><br>
 
