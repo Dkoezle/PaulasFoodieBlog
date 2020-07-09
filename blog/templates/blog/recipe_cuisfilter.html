@@ -2,36 +2,36 @@
 {% load static %}
 
  {% block content %}
-    <table class="category-links">
-        <tr>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='AFR' %}">Afrikanische Küche</a></td>
-        </tr>
-        <tr>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
-            <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
-        </tr>
-    </table><br>
+        <table class="category-links">
+            <tr>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='AFR' %}">Afrikanische Küche</a></td>
+            </tr>
+            <tr>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
+            </tr>
+        </table><br>
 
-    <h2>Ergebnisse für {{ cuis_name }} </h2>
-
-    {% for recipe in cuis_recipes %}
         <div class="recipe">
+            <h3 class="search-title">Ergebnisse für {{ cuis_name }}</h3>
+
+            {% for recipe in cuis_recipes %}
+                <div class="properties">
+                    <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                    <p>Veröffentlicht am: {{ recipe.published_date }}</p>
+                    <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                        {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
+                    <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
+                    <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
+                    <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
+                </div>
+            {% empty %}
             <div class="properties">
-            <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
-                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
-                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
-             </div>
-            <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
-            <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
-            <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
+                <br><p>Sorry, es wurden noch keine Rezepte zu dieser Kategorie veröffentlicht :(</p>
+            </div>
+            {% endfor %}
         </div>
-    {% empty %}
-    <div class="recipe">
-        <br><p>Sorry, es wurden noch keine Rezepte zu dieser Kategorie veröffentlicht :(</p>
-    </div>
-    {% endfor %}
 {% endblock %}
