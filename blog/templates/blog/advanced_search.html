@@ -2,7 +2,7 @@
 {% load static %}
 
  {% block content %}
-<h2>Das perfekte Rezept findest du hier :) </h2>
+<h4>Wähle deine Lieblings-Kategorie :)</h4>
 <table class="category-links">
     <tr>
         <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
@@ -14,18 +14,22 @@
         <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
         <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
     </tr>
+</table>
+<h4>Oder stöbere durch Rezepte ohne diese Allergene... </h4>
+<table class="category-links">
     <tr></tr>
     <tr>
-        <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
-        <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nüsse</a></td>
-        <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine Allergene</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">ohne Nüsse</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">ohne Gluten</a></td>
     </tr>
     <tr>
-        <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
-        <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
-        <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Hühnereier</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">ohne Kuhmilch</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">ohne Fisch</a></td>
+        <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">ohne Hühnereier</a></td>
     </tr>
-</table><br>
+</table>
+<h4>Oder schließe alle deine K.O.-Kriterien aus</h4><br>
 
 <form method="POST" class="post-form">{% csrf_token %}
      {{ form.as_p }}

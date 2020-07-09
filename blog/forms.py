@@ -9,32 +9,31 @@ class RecipeForm(forms.ModelForm):
                   'contained_allergen', 'instruction')
 
 
-class RawRecipeForm(forms.Form):
-    title = forms.CharField()
-    is_vegan = forms.BooleanField(required=False, label='Vegan')
-    is_veggie = forms.BooleanField(required=False, label='Vegetarisch')
+class RawAdvancedSearch(forms.Form):
+    title = forms.CharField(widget=forms.TextInput(attrs={'width': '40'}), label="Rezeptname entält: ", required=False)
+
+    diet_types = (
+        ('DEF', 'Egal'),
+        ('VGN', 'Vegan'),
+        ('VGT', 'Vegetarisch'),)
+    diet = forms.ChoiceField(choices=diet_types, label="Ernährungsform")
+
     cuisine_types = (
-        ('DEF', 'Keine'),
+        ('DEF', 'Egal'),
         ('INT', 'Internationale Küche'),
         ('ASI', 'Asiatische Küche'),
         ('AFR', 'Afrikanische Küche'),
         ('EUR', 'Europäische Küche'),
         ('AME', 'Amerikanische Küche'),
         ('SUA', 'Südamerikanische Küche'),)
-    cuisine = forms.ChoiceField(choices=cuisine_types)
+    cuisine = forms.ChoiceField(choices=cuisine_types, label="Kategorie")
+
     allergen_types = (
         ("nuts", "Nüsse"),
         ("glut", "Gluten"),
         ("lact", "Kuhmilch"),
         ("fish", "Fisch"),
-        ("egg", "Hühnereier"),
-    )
-    contained_allergen = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple, choices=allergen_types)
-    instruction = forms.CharField(widget=forms.Textarea())
+        ("egg", "Hühnereier"),)
 
-class AdvancedSearch(forms.ModelForm):
-
-    class Meta:
-        model = Recipe
-        fields = ('is_vegan', 'is_veggie', 'cuisine', 'contained_allergen')
+    allergens = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=allergen_types,
+                                          label="Diese Allergene ausschließen:")

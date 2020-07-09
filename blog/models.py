@@ -5,8 +5,7 @@ from multiselectfield import MultiSelectField
 
 
 class Recipe(models.Model):
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     is_vegan = models.BooleanField("Vegan", default=False)
     is_veggie = models.BooleanField("Vegetarisch", default=False)

@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="recipe">
+        <h3 class="result-title ">Ergebnisse deiner erweiterten Suche</h3>
+
+        {% for recipe in search_results %}
+            <div class="properties">
+                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
+                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
+                <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
+                <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
+                <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
+            </div>
+        {% empty %}
+        <div class="properties">
+            <br><p>Sorry, es wurden keine Rezepte zu deiner Suchanfrage gefunden :(</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

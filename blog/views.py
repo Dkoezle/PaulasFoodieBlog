@@ -1,13 +1,12 @@
-from django.shortcuts import render
 from .models import Recipe
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from .forms import RecipeForm, AdvancedSearch
+from .forms import RecipeForm, RawAdvancedSearch
 from django.shortcuts import redirect
 
 
 def recipe_list(request):
-    recipes = Recipe.objects.filter(published_date__lte=timezone.now()).order_by('created_date')
+    recipes = Recipe.objects.filter(published_date__lte=timezone.now()).order_by('-created_date')
     return render(request, 'blog/recipe_list.html', {'recipes': recipes})
 
 
@@ -45,17 +44,51 @@ def recipe_edit(request, pk):
     return render(request, 'blog/recipe_edit.html', {'form': form})
 
 def recipe_cuisfilter(request, cuis):
-    cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis)
+    cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis).order_by('-created_date')
     cuis_name = dict(Recipe.cuisine_types)[cuis]
     return render(request, 'blog/recipe_cuisfilter.html', {'cuis_recipes': cuis_recipes, 'cuis_name': cuis_name})
 
 
 def recipe_allerfilter(request, aller):
-    aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), contained_allergen=aller)
+    if aller == "NA":
+        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()).\
+            filter(contained_allergen__contains=aller).order_by('-created_date')
+    else:
+        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()).\
+            exclude(contained_allergen__contains=aller).order_by('-created_date')
+
     aller_name = dict(Recipe.allergen_types)[aller]
     return render(request, 'blog/recipe_allerfilter.html', {'aller_recipes': aller_recipes, 'aller_name': aller_name})
 
 
 def advanced_search(request):
-    form = AdvancedSearch()
-    return render(request, 'blog/advanced_search.html', {'form': form})
+    if request.method == "POST":
+        user_query = request.POST
+        print(type(user_query))
+        print(user_query)
+        keys = user_query.keys()
+        print(keys)
+        search_results = Recipe.objects.filter(published_date__lte=timezone.now())
+        if user_query['title'] != '':
+            search_results = search_results.filter(title__contains=user_query['title'])
+
+        if user_query['diet'] == 'VGN':
+            search_results = search_results.filter(is_vegan=True)
+        elif user_query['diet'] == 'VGT':
+            search_results = search_results.filter(is_veggie=True)
+
+        if user_query['cuisine'] != 'DEF':
+            search_results = search_results.filter(cuisine=user_query['cuisine'])
+
+        if user_query.getlist('allergens'):
+            print('results vor aller-filter: ', search_results)
+            for allergen in user_query.getlist('allergens'):
+                search_results = search_results.exclude(contained_allergen__contains=allergen)
+
+        search_results = search_results.order_by('-created_date')
+        print('results nach aller-filter: ', search_results)
+        return render(request, 'blog/recipe_advsearch_results.html', {'search_results': search_results})
+
+    else:
+        form = RawAdvancedSearch()
+        return render(request, 'blog/advanced_search.html', {'form': form})

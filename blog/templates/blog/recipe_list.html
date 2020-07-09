@@ -35,18 +35,16 @@
                         <td><a href="{% url 'advanced_search' %}">Erweiterte Suche</a></td>
                         <td></td>
                     </tr>
-                </table><br>
+                </table>
 
                     {% for recipe in recipes %}
                         <div class="recipe">
                             <div class="properties">
-
-                                <h4><p>{{ recipe.published_date }}</p></h4>
-                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %} &nbsp;</p>
-                                <p><h4>KATEGORIE</h4> {{recipe.get_cuisine_display}} </p><br>
-                                <h4><p>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}</p><br>
+                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
+                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                                <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
+                                <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
                             </div>
                         </div>
                     {% endfor %}

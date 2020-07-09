@@ -13,25 +13,23 @@
             <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
             <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Hühnereier</a></td>
         </tr>
-    </table><br>
+    </table>
 
-    <h2>Rezepte für die folgende Allergieart: {{ aller_name }} </h2>
-
-    {% for recipe in aller_recipes %}
-        <div class="recipe">
-            <div class="properties">
-            <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
-                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
-                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
-             </div>
-            <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
-            <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
-            <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
-        </div>
-    {% empty %}
     <div class="recipe">
-        <br><p>Sorry, es wurden noch keine Rezepte zu dieser Kategorie veröffentlicht :(</p>
+        <h3 class="result-title">Rezepte für die folgende Allergieart: {{ aller_name }} </h3>
+
+        {% for recipe in aller_recipes %}
+            <div class="properties">
+                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
+                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
+                <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
+            </div>
+        {% empty %}
+        <div class="properties">
+            <br><p>Sorry, es wurden noch keine Rezepte zu dieser Kategorie veröffentlicht :(</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}
