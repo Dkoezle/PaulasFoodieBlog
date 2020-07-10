@@ -8,10 +8,6 @@ class RecipeForm(forms.ModelForm):
         fields = ('title', 'is_vegan', 'is_veggie', 'cuisine',
                   'contained_allergen', 'instruction')
 
-class HorizontalRadioRenderer(forms.MultipleChoiceField.renderer):
-  def render(self):
-    return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
-
 
 class RawAdvancedSearch(forms.Form):
     title = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), label="Rezeptname", required=False)
