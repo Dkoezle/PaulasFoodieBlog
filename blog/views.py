@@ -43,6 +43,7 @@ def recipe_edit(request, pk):
         form = RecipeForm(instance=recipe)
     return render(request, 'blog/recipe_edit.html', {'form': form})
 
+
 def recipe_cuisfilter(request, cuis):
     cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis).order_by('-created_date')
     cuis_name = dict(Recipe.cuisine_types)[cuis]
@@ -51,10 +52,10 @@ def recipe_cuisfilter(request, cuis):
 
 def recipe_allerfilter(request, aller):
     if aller == "NA":
-        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()).\
+        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()). \
             filter(contained_allergen__contains=aller).order_by('-created_date')
     else:
-        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()).\
+        aller_recipes = Recipe.objects.filter(published_date__lte=timezone.now()). \
             exclude(contained_allergen__contains=aller).order_by('-created_date')
 
     aller_name = dict(Recipe.allergen_types)[aller]
@@ -62,13 +63,17 @@ def recipe_allerfilter(request, aller):
 
 
 def advanced_search(request):
+    # wenn man eine suchanfrage (POST) abgeschickt, soll sie verarbeitet werden, sonst einfach nur Formular anzeigen
     if request.method == "POST":
-        user_query = request.POST
+        user_query = request.POST  # hier stehen die "rohen" sucheinstellungen drin
         searchform = RawAdvancedSearch()
-        query = {}
+        query = {}  # leeres dict, das mit sauberen Sucheinstellungen befüllt und an Ergebnis-HTML weitergegeben wird
         search_results = Recipe.objects.filter(published_date__lte=timezone.now())
+
+        # nur wenn Titel-Textfeld nicht leer ist sollen rezepte nach Titel gefiltert werden
         if user_query['title'] != '':
             search_results = search_results.filter(title__contains=user_query['title'])
+            # füge titel-einstellung zum query-dict hinzu,verwende Namen aus Formular (form.py) als key
             query[searchform.fields['title'].label] = user_query['title']
 
         if user_query['diet'] == 'VGN':
@@ -80,16 +85,25 @@ def advanced_search(request):
 
         if user_query['cuisine'] != 'DEF':
             search_results = search_results.filter(cuisine=user_query['cuisine'])
+            # verwende display-value aus Formular für das query-dict statt den cuisine_type key
             query[searchform.fields['cuisine'].label] = dict(RawAdvancedSearch.cuisine_types)[user_query['cuisine']]
 
+        # wenn Allergene angekreuzt wurden...
         if user_query.getlist('allergens'):
+            # ...initiiere leere liste im sauberen query-dict
             query[searchform.fields['allergens'].label] = []
+            # ...und filtere jedes Allergen einzeln, welches in der rohen suchanfrage steht
+
             for allergen in user_query.getlist('allergens'):
                 search_results = search_results.exclude(contained_allergen__contains=allergen)
+                # hänge das allergen zur liste der allergene im sauberen query-dict an. Mit Bezeichnung aus Formular
                 query[searchform.fields['allergens'].label].append(dict(RawAdvancedSearch.allergen_types)[allergen])
+
+            # wandle die saubere Allergen-Liste in einen komma-getrennten String um
             query[searchform.fields['allergens'].label] = ', '.join(query[searchform.fields['allergens'].label])
 
         search_results = search_results.order_by('-created_date')
+        # übergebe die Suchergebnisse und das saubere query-dict an die Suchergebnis-Seite
         return render(request, 'blog/recipe_advsearch_results.html', {'search_results': search_results, 'query': query})
 
     else:
