@@ -13,6 +13,7 @@
         {% endif %}
 
         <h2>{{ recipe.title }}</h2><br>
+        <img src="{{ recipe.image.url }}" class="img-responsive" />
         <h4>ERNÄHRUNGSFORM</h4>
         <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
         <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p><br>
