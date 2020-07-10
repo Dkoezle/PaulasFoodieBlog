@@ -37,17 +37,17 @@
                     </tr>
                 </table>
 
+                <div class="recipe">
                     {% for recipe in recipes %}
-                        <div class="recipe">
-                            <div class="properties">
-                                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
-                                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
-                                <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
-                                <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
-                            </div>
+                        <div class="properties">
+                            <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                                {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
+                            <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                            <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
+                            <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
                         </div>
                     {% endfor %}
+                </div>
                 {% endblock %}
             </div>
         </div>

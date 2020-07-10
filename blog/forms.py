@@ -8,9 +8,13 @@ class RecipeForm(forms.ModelForm):
         fields = ('title', 'is_vegan', 'is_veggie', 'cuisine',
                   'contained_allergen', 'instruction')
 
+class HorizontalRadioRenderer(forms.MultipleChoiceField.renderer):
+  def render(self):
+    return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+
 
 class RawAdvancedSearch(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'width': '40'}), label="Rezeptname entält: ", required=False)
+    title = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), label="Rezeptname", required=False)
 
     diet_types = (
         ('DEF', 'Egal'),
@@ -35,5 +39,5 @@ class RawAdvancedSearch(forms.Form):
         ("fish", "Fisch"),
         ("egg", "Hühnereier"),)
 
-    allergens = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=allergen_types,
-                                          label="Diese Allergene ausschließen:")
+    allergens = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                          choices=allergen_types, label="Diese Allergene ausschließen")

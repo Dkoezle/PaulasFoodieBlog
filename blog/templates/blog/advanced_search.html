@@ -29,7 +29,7 @@
         <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">ohne Hühnereier</a></td>
     </tr>
 </table>
-<h4>Oder schließe alle deine K.O.-Kriterien aus</h4><br>
+<h4>Oder suche nach etwas ganz bestimmten</h4><br>
 
 <form method="POST" class="post-form">{% csrf_token %}
      {{ form.as_p }}

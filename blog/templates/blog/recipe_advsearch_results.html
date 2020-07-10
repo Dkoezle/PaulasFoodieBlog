@@ -3,17 +3,21 @@
 
 {% block content %}
     <div class="recipe">
-        <h3 class="result-title ">Ergebnisse deiner erweiterten Suche</h3>
+        <div class="result-title">
+            <span>Anzahl gefundene Rezepte:</span> {{ search_results.count }}<br>
+            {% for attr, value in query.items %}
+                <span>{{attr}}:</span> {{value}}<br>
+            {% endfor %}
+            <h3>Ergebnisse deiner erweiterten Suche</h3>
+        </div>
 
         {% for recipe in search_results %}
             <div class="properties">
-                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
-                <p>Veröffentlicht am: {{ recipe.published_date }}</p>
                 <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p><br>
-                <p>KATEGORIE: {{recipe.get_cuisine_display}} </p>
-                <p>ENTHALTENE ALLERGENE: {{ recipe.contained_allergen }}</p>
-                <p>ZUBEREITUNG: {{ recipe.instruction|linebreaksbr }}</p>
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
+                <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
+                <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
+                <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
             </div>
         {% empty %}
         <div class="properties">

@@ -64,30 +64,33 @@ def recipe_allerfilter(request, aller):
 def advanced_search(request):
     if request.method == "POST":
         user_query = request.POST
-        print(type(user_query))
-        print(user_query)
-        keys = user_query.keys()
-        print(keys)
+        searchform = RawAdvancedSearch()
+        query = {}
         search_results = Recipe.objects.filter(published_date__lte=timezone.now())
         if user_query['title'] != '':
             search_results = search_results.filter(title__contains=user_query['title'])
+            query[searchform.fields['title'].label] = user_query['title']
 
         if user_query['diet'] == 'VGN':
             search_results = search_results.filter(is_vegan=True)
+            query[searchform.fields['diet'].label] = 'Vegan'
         elif user_query['diet'] == 'VGT':
             search_results = search_results.filter(is_veggie=True)
+            query[searchform.fields['diet'].label] = 'Vegetarisch'
 
         if user_query['cuisine'] != 'DEF':
             search_results = search_results.filter(cuisine=user_query['cuisine'])
+            query[searchform.fields['cuisine'].label] = dict(RawAdvancedSearch.cuisine_types)[user_query['cuisine']]
 
         if user_query.getlist('allergens'):
-            print('results vor aller-filter: ', search_results)
+            query[searchform.fields['allergens'].label] = []
             for allergen in user_query.getlist('allergens'):
                 search_results = search_results.exclude(contained_allergen__contains=allergen)
+                query[searchform.fields['allergens'].label].append(dict(RawAdvancedSearch.allergen_types)[allergen])
+            query[searchform.fields['allergens'].label] = ', '.join(query[searchform.fields['allergens'].label])
 
         search_results = search_results.order_by('-created_date')
-        print('results nach aller-filter: ', search_results)
-        return render(request, 'blog/recipe_advsearch_results.html', {'search_results': search_results})
+        return render(request, 'blog/recipe_advsearch_results.html', {'search_results': search_results, 'query': query})
 
     else:
         form = RawAdvancedSearch()

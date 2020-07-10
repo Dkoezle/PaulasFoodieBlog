@@ -146,6 +146,11 @@ body{
     background-color: white;
 }
 
-.result-title{
+.result-title {
     margin-bottom: 30px;
+}
+
+.result-title span{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: 13pt;
 }
