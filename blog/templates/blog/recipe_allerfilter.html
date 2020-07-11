@@ -2,26 +2,56 @@
 {% load static %}
 
  {% block content %}
-    <table class="category-links">
-        <tr>
-            <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine</a></td>
-            <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">Nüsse</a></td>
-            <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">Gluten</a></td>
-        </tr>
-        <tr>
-            <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">Kuhmilch</a></td>
-            <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">Fisch</a></td>
-            <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">Hühnereier</a></td>
-        </tr>
-    </table>
+    <div class="collapse" id="adv_form">
+        <h4>Wähle deine Lieblings-Kategorie :)</h4>
+        <table class="category-links">
+            <tr>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='ASI' %}">Asiatische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='AFR' %}">Afrikanische Küche</a></td>
+            </tr>
+            <tr>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='EUR' %}">Europäische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='AME' %}">Amerikanische Küche</a></td>
+                <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
+            </tr>
+        </table>
+        <h4>Oder stöbere durch Rezepte ohne diese Allergene... </h4>
+        <table class="category-links">
+            <tr></tr>
+            <tr>
+                <td><a href="{% url 'recipe_allerfilter' aller='NA' %}">Keine Allergene</a></td>
+                <td><a href="{% url 'recipe_allerfilter' aller='nuts' %}">ohne Nüsse</a></td>
+                <td><a href="{% url 'recipe_allerfilter' aller='glut' %}">ohne Gluten</a></td>
+            </tr>
+            <tr>
+                <td><a href="{% url 'recipe_allerfilter' aller='lact' %}">ohne Kuhmilch</a></td>
+                <td><a href="{% url 'recipe_allerfilter' aller='fish' %}">ohne Fisch</a></td>
+                <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">ohne Hühnereier</a></td>
+            </tr>
+        </table>
+        <h4>Oder suche nach etwas ganz bestimmten</h4><br>
+
+        <form method="POST" class="post-form">{% csrf_token %}
+             {{ form.as_p }}
+              <button type="submit" class="btn btn-outline-dark" href="{% url 'advanced_search' %}">Search</button><br>
+        </form>
+    </div>
 
     <div class="recipe">
-        <h3 class="result-title">Rezepte für die folgende Allergieart: {{ aller_name }} </h3>
+        <div class="result-title">
+            <h3>Rezepte ohne {{ aller_name }} </h3>
+            <p><span>Anzahl gefundene Rezepte:</span> {{ aller_recipes.count }}</p>
+
+            <a data-toggle="collapse" href="#adv_form" aria-expanded="false" aria-controls="collapseExample">
+                Erweiterte Suche einblenden
+            </a>
+        </div>
 
         {% for recipe in aller_recipes %}
             <div class="properties">
-                <p>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</p>
+                {% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}
                 <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                 <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
                 <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>

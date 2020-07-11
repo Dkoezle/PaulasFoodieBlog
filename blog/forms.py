@@ -10,9 +10,8 @@ class RecipeForm(forms.ModelForm):
 
 
 class RawAdvancedSearch(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'style': 'width:500px'}),
-                            max_length=10, label="Rezeptname", required=False)
-
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'size': '60'}),
+                            max_length=30, label="Rezeptname", required=False)
     diet_types = (
         ('DEF', 'Egal'),
         ('VGN', 'Vegan'),
@@ -28,12 +27,7 @@ class RawAdvancedSearch(forms.Form):
         ('SUA', 'Südamerikanische Küche'),)
     cuisine = forms.ChoiceField(choices=cuisine_types, label="Kategorie")
 
-    allergen_types = (
-        ("nuts", "Nüsse"),
-        ("glut", "Gluten"),
-        ("lact", "Laktose"),
-        ("fish", "Fisch"),
-        ("egg", "Hühnereier"),)
+    allergen_types = Recipe.allergen_types
 
     allergens = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                           choices=allergen_types, label="Diese Allergene ausschließen")

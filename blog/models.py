@@ -23,7 +23,7 @@ class Recipe(models.Model):
         ("NA", "Keine"),
         ("nuts", "Nüsse"),
         ("glut", "Gluten"),
-        ("lact", "Kuhmilch"),
+        ("lact", "Laktose"),
         ("fish", "Fisch"),
         ("egg", "Hühnereier"),
     )

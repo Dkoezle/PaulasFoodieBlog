@@ -10,5 +10,5 @@ urlpatterns = [
     path('recipe/filter/cuis=<str:cuis>/', views.recipe_cuisfilter, name='recipe_cuisfilter'),
     path('recipe/filter/aller=<str:aller>/', views.recipe_allerfilter, name='recipe_allerfilter'),
     path('recipe/advsearch', views.advanced_search, name='advanced_search'),
-    path('recipe/advsearch/results/', views.advanced_search, name='advsearch_results'),
+    path('recipe/advsearch/results/<', views.advanced_search, name='advsearch_results'),
 ]
