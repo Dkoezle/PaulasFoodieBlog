@@ -14,17 +14,16 @@
 
         <h2>{{ recipe.title }}</h2><br>
         {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" onerror="this.style.display='none'" class="img-responsive" />
+            <img src="{{ recipe.image.url }}" onerror="this.style.display='none'" class="img-responsive" />
         {% endif %}
         <h4>ERNÄHRUNGSFORM</h4>
         <p>Vegan: {% if recipe.is_vegan %} Ja {% else %} Nein {% endif %}</p>
-        <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p><br>
+        <p>Vegetarisch: {% if recipe.is_veggie %} Ja {% else %} Nein {% endif %}</p>
         <h4> KATEGORIE </h4>
         <p>{{ recipe.get_cuisine_display }}</p>
         <h4> ENTHALTENE ALLERGENE </h4>
         <p>{{ recipe.contained_allergen }}</p>
         <h4>ZUBEREITUNG</h4>
         <p>{{ recipe.instruction|linebreaksbr }}</p><br>
-
     </div>
 {% endblock %}

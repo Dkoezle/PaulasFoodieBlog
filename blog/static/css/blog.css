@@ -44,7 +44,7 @@ h3 {
 
 h4 {
     font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size: 13pt;
+    font-size: 13pt;<
 
 }
 
@@ -153,4 +153,13 @@ body{
 .result-title span{
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: 13pt;
+}
+
+.list-image {
+    float:right;
+    width: 45%;
+}
+
+.img-responsive{
+    margin-bottom: 25px;
 }
