@@ -5,7 +5,7 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ('title', 'is_vegan', 'is_veggie', 'cuisine',
+        fields = ('title', 'image', 'is_vegan', 'is_veggie', 'cuisine',
                   'contained_allergen', 'instruction')
 
 

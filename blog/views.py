@@ -7,7 +7,8 @@ from django.http import HttpResponseRedirect
 
 
 def recipe_list(request):
-    recipes = Recipe.objects.filter(published_date__lte=timezone.now()).order_by('-created_date')
+    recipes = Recipe.objects.filter(
+        published_date__lte=timezone.now()).order_by('-created_date')
     return render(request, 'blog/recipe_list.html', {'recipes': recipes})
 
 
@@ -18,7 +19,7 @@ def recipe_detail(request, pk):
 
 def recipe_new(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES or None)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
@@ -33,7 +34,7 @@ def recipe_new(request):
 def recipe_edit(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     if request.method == "POST":
-        form = RecipeForm(request.POST, instance=recipe)
+        form = RecipeForm(request.POST, request.FILES or None, instance=recipe)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
@@ -50,7 +51,8 @@ def recipe_cuisfilter(request, cuis):
         request.session['advsearch_data'] = dict(request.POST)
         return HttpResponseRedirect('/recipe/advsearch')
     else:
-        cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(), cuisine=cuis).order_by('-created_date')
+        cuis_recipes = Recipe.objects.filter(published_date__lte=timezone.now(),
+                                             cuisine=cuis).order_by('-created_date')
         cuis_name = dict(Recipe.cuisine_types)[cuis]
         form = RawAdvancedSearch()
 
@@ -95,7 +97,8 @@ def advanced_search(request):
             user_query = dict(request.POST)
         searchform = RawAdvancedSearch()
         query = {}  # leeres dict, das mit sauberen Sucheinstellungen befüllt und an Ergebnis-HTML weitergegeben wird
-        search_results = Recipe.objects.filter(published_date__lte=timezone.now())
+        search_results = Recipe.objects.filter(
+            published_date__lte=timezone.now())
 
         # nur wenn Titel-Textfeld nicht leer ist sollen rezepte nach Titel gefiltert werden
         if user_query['title'][0] != '':
@@ -127,10 +130,12 @@ def advanced_search(request):
                 else:
                     search_results = search_results.exclude(contained_allergen__contains=allergen)
                 # hänge das allergen zur liste der allergene im sauberen query-dict an. Mit Bezeichnung aus Formular
-                query[searchform.fields['allergens'].label].append(dict(RawAdvancedSearch.allergen_types)[allergen])
+                query[searchform.fields['allergens'].label].append(
+                    dict(RawAdvancedSearch.allergen_types)[allergen])
 
             # wandle die saubere Allergen-Liste in einen komma-getrennten String um
-            query[searchform.fields['allergens'].label] = ', '.join(query[searchform.fields['allergens'].label])
+            query[searchform.fields['allergens'].label] = ', '.join(
+                query[searchform.fields['allergens'].label])
 
         # übergebe die Suchergebnisse und das saubere query-dict an die Suchergebnis-Seite
         search_results = search_results.order_by('-created_date')

@@ -158,3 +158,12 @@ body{
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: 13pt;
 }
+
+.list-image {
+    float:right;
+    width: 45%;
+}
+
+.img-responsive{
+    margin-bottom: 25px;
+}
