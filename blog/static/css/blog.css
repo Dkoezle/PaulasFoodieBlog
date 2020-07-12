@@ -38,9 +38,10 @@ h2 {
 }
 
 h3 {
-    font-family: 'Lora', serif;
-    font-size: 16pt;
+    font-size: 15pt;
+    color: #d0b38d;
 }
+
 
 h4 {
     font-family: 'Barlow Semi Condensed', sans-serif;
@@ -50,6 +51,11 @@ h4 {
 h5 {
     font-family:'Open Sans', sans-serif;
     font-size: 10pt;
+}
+
+h6 {
+    font-size: 12pt;
+    color: #d0b38d;
 }
 
 .col-md-8 {
@@ -122,6 +128,11 @@ h5 {
     margin-bottom: 30px;
 }
 
+@media only screen and (max-width: 600px) {
+    td, th {
+        display: block;
+    }
+}
 
 .advsearch {
     font-size: 16px;

@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="collapse" id="adv_form">
-        <h4>Wähle deine Lieblings-Kategorie :)</h4>
+        <h4>Wähle deine Lieblingskategorie:</h4>
         <table class="category-links">
             <tr>
                 <td><a href="{% url 'recipe_cuisfilter' cuis='INT' %}">Internationale Küche</a></td>
@@ -16,7 +16,7 @@
                 <td><a href="{% url 'recipe_cuisfilter' cuis='SUA' %}">Südamerikanische Küche</a></td>
             </tr>
         </table>
-        <h4>Oder stöbere durch Rezepte ohne diese Allergene... </h4>
+        <h4>Oder stöbere durch Rezepte ohne diese Allergene: </h4>
         <table class="category-links">
             <tr></tr>
             <tr>
@@ -30,7 +30,7 @@
                 <td><a href="{% url 'recipe_allerfilter' aller='egg' %}">ohne Hühnereier</a></td>
             </tr>
         </table>
-        <h4>Oder suche nach etwas ganz bestimmten</h4><br>
+        <h4>Oder suche nach etwas ganz Bestimmten:</h4><br>
 
         <form method="POST" class="post-form">{% csrf_token %}
              {{ form.as_p }}
@@ -50,8 +50,8 @@
 
         {% for recipe in cuis_recipes %}
             <div class="properties">
-                {% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}
+                <h6>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</h6>
                 <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                 <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
                 <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>

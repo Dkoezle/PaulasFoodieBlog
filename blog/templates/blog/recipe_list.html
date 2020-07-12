@@ -18,12 +18,9 @@
 </head>
 <body>
     <div class="page-header">
-        <h1><a href="/">Paulas Foodie Blog</a></h1>
+        <h1><a href="/">Paula's foodbook'</a></h1>
     </div>
 
-    <div class="content container">
-        <div class="row">
-            <div class="col-sm-4">
 {% block content %}
     <table class="category-links">
         <tr>
@@ -46,8 +43,8 @@
     <div class="recipe">
         {% for recipe in recipes %}
             <div class="properties">
-                {% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
-                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}
+                <h6>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch {% elif recipe.is_vegan %} Vegan
+                    {% elif recipe.is_veggie %} Vegetarisch {% endif %}</h6>
                 <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                 <h4>KATEGORIE</h4> {{recipe.get_cuisine_display}}<br>
                 <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
