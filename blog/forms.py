@@ -10,7 +10,7 @@ class RecipeForm(forms.ModelForm):
 
 
 class RawAdvancedSearch(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'size': '60'}),
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'size': '40'}),
                             max_length=30, label="Rezeptname", required=False)
     diet_types = (
         ('DEF', 'Egal'),

@@ -128,8 +128,8 @@ h6 {
     margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 600px) {
-    td, th {
+@media only screen and (max-width: 768px) {
+    td, .recipe {
         display: block;
     }
 }
