@@ -18,8 +18,8 @@
     content: ' ';
     background-image: url("images/paula_icon.png");
     background-size: contain;
-    width: 100px;
-    height:  100px;
+    width: 72px;
+    height:  72px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -99,7 +99,7 @@ h6 {
 
 .recipe {
     margin: auto;
-    width: 750px;
+    width: 65%;
     padding-left: 20px;
     padding-right: 20px;
 }
