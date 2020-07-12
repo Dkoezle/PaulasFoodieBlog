@@ -1,7 +1,7 @@
 from .models import Recipe
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from .forms import RecipeForm, RawAdvancedSearch
+from .forms import RecipeForm, RawAdvancedSearch, IngredientFormset
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 
@@ -20,6 +20,9 @@ def recipe_detail(request, pk):
 def recipe_new(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES or None)
+        formset = IngredientFormset(request.POST, request.FILES or None)
+        print(dir(formset))
+        print('formset: ', formset)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
@@ -28,7 +31,8 @@ def recipe_new(request):
             return redirect('recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm()
-    return render(request, 'blog/recipe_edit.html', {'form': form})
+        formset = IngredientFormset()
+    return render(request, 'blog/recipe_edit.html', {'form': form, 'ingredformset': formset})
 
 
 def recipe_edit(request, pk):
