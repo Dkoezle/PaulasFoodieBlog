@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 from multiselectfield import MultiSelectField
@@ -40,3 +41,12 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ingredients(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
+    amount = models.DecimalField(decimal_places=2, max_digits=4,
+                                 validators=[MinValueValidator(0.01), MaxValueValidator(1000)],
+                                 )
+    unit = models.CharField(max_length=10)
+    ingredient = models.CharField(max_length=30)

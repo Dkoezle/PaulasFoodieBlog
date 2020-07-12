@@ -23,10 +23,10 @@
     <div class="recipe">
         {% for recipe in recipes %}
             <div class="properties">
-                {% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch
+                <h6>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch
                     {% elif recipe.is_vegan %} Vegan
                     {% elif recipe.is_veggie %} Vegetarisch
-                {% endif %}
+                {% endif %}</h6>
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" onerror="this.style.display='none'" class="list-image" />
                 {% endif %}

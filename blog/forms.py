@@ -1,4 +1,7 @@
+from decimal import Decimal
 from django import forms
+from django.forms import formset_factory
+
 from .models import Recipe
 
 class RecipeForm(forms.ModelForm):
@@ -9,8 +12,16 @@ class RecipeForm(forms.ModelForm):
                   'contained_allergen', 'instruction')
 
 
+class IngredientFormFields (forms.Form):
+    amount = forms.DecimalField(min_value=Decimal('0.01'))
+    unit = forms.CharField(max_length=10)
+    ingredient = forms.CharField(max_length=30)
+
+IngredientFormset = formset_factory(IngredientFormFields)
+
+
 class RawAdvancedSearch(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'size': '60'}),
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Rezeptname enthält...', 'size': '40'}),
                             max_length=30, label="Rezeptname", required=False)
     diet_types = (
         ('DEF', 'Egal'),
