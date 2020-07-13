@@ -1,9 +1,10 @@
-from .models import Recipe
+from .models import Recipe, Ingredients
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from .forms import RecipeForm, RawAdvancedSearch, IngredientFormset
+from .forms import RecipeForm, RawAdvancedSearch
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.forms import inlineformset_factory
 
 
 def recipe_list(request):
@@ -18,36 +19,52 @@ def recipe_detail(request, pk):
 
 
 def recipe_new(request):
+    IngredientFormset = inlineformset_factory(Recipe, Ingredients, fields=('amount', 'unit', 'ingredient'))
+
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES or None)
-        formset = IngredientFormset(request.POST, request.FILES or None)
-        print(dir(formset))
-        print('formset: ', formset)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.published_date = timezone.now()
-            recipe.save()
-            return redirect('recipe_detail', pk=recipe.pk)
+            formset = IngredientFormset(request.POST, instance=recipe)
+            if formset.is_valid():
+                recipe.save()
+                formset.save()
+                return redirect('recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm()
         formset = IngredientFormset()
-    return render(request, 'blog/recipe_edit.html', {'form': form, 'ingredformset': formset})
+        context = {'form': form,
+                  'ingredformset': formset,
+                  }
+    return render(request, 'blog/recipe_edit.html', context)
 
 
 def recipe_edit(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
+    IngredientFormset = inlineformset_factory(Recipe, Ingredients, fields=('amount', 'unit', 'ingredient'))
+
     if request.method == "POST":
         form = RecipeForm(request.POST, request.FILES or None, instance=recipe)
         if form.is_valid():
+            print('form valid')
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.published_date = timezone.now()
             recipe.save()
-            return redirect('recipe_detail', pk=recipe.pk)
+            formset = IngredientFormset(request.POST, instance=recipe, initial=[{'id': ''}])
+            print(formset.errors)
+            if formset.is_valid():
+                formset.save()
+                return redirect('recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm(instance=recipe)
-    return render(request, 'blog/recipe_edit.html', {'form': form})
+        formset = IngredientFormset(instance=recipe)
+        context = {'form': form,
+                   'ingredformset': formset,
+                   }
+    return render(request, 'blog/recipe_edit.html', context)
 
 
 def recipe_cuisfilter(request, cuis):

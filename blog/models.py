@@ -43,7 +43,7 @@ class Recipe(models.Model):
         return self.title
 
 
-class ingredients(models.Model):
+class Ingredients(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
     amount = models.DecimalField(decimal_places=2, max_digits=4,
                                  validators=[MinValueValidator(0.01), MaxValueValidator(1000)],

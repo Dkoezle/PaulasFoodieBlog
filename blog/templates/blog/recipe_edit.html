@@ -4,7 +4,17 @@
     <h2>New recipe</h2>
      <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
          {{ form.as_p }}
-         {{ ingredformset.as_table }}<br>
+         {{ ingredformset.management_form }}
+         <table>
+             {% for fsetform in ingredformset %}
+                <tr>
+                    {% for field in fsetform.visible_fields %}
+                         <td> {{ field.label_tag }} {{ field }} </td>
+                    {% endfor %}
+                    <td class="hidden">{{ fsetform.id }}</td>
+                </tr>
+             {% endfor %}
+         </table>
           <button type="submit" class="btn btn-outline-dark">Save</button><br>
      </form>
 {% endblock %}

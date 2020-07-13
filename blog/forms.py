@@ -15,9 +15,10 @@ class RecipeForm(forms.ModelForm):
 class IngredientFormFields (forms.Form):
     amount = forms.DecimalField(min_value=Decimal('0.01'))
     unit = forms.CharField(max_length=10)
-    ingredient = forms.CharField(max_length=30)
+    ingredient = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}),
+                                 max_length=30)
 
-IngredientFormset = formset_factory(IngredientFormFields)
+IngredientFormset = formset_factory(IngredientFormFields, extra=5)
 
 
 class RawAdvancedSearch(forms.Form):

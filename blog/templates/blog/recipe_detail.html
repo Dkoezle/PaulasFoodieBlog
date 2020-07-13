@@ -28,6 +28,11 @@
         <p>{{ recipe.get_cuisine_display }}</p>
         <h4> ENTHALTENE ALLERGENE </h4>
         <p>{{ recipe.contained_allergen }}</p>
+        <h4> ZUTATEN </h4>
+        <p>{% for ingredient_instance in recipe.ingredients.all %}
+            {{ ingredient_instance.amount }} {{ ingredient_instance.unit }} {{ ingredient_instance.ingredient }}<br>
+            {% endfor %}
+        </p>
         <h4>ZUBEREITUNG</h4>
         <p>{{ recipe.instruction|linebreaksbr }}</p><br>
     </div>
