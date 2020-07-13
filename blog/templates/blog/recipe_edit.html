@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h2>New recipe</h2>
+    <h2>Rezept erstellen/bearbeiten</h2>
      <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
          {{ form.as_p }}
          {{ ingredformset.management_form }}
