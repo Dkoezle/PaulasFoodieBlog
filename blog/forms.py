@@ -8,14 +8,20 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
+        widgets = {
+            'title': forms.TextInput(attrs={'size': '60%'}),
+            'instruction': forms.Textarea(attrs={'style': 'width: 100%'}),
+        }
         fields = ('title', 'image', 'is_vegan', 'is_veggie', 'cuisine',
                   'contained_allergen', 'instruction')
 
 
 class IngredientFormFields (forms.Form):
-    amount = forms.DecimalField(min_value=Decimal('0.01'))
+
+    amount = forms.DecimalField(min_value=Decimal('0.01'),
+                                widget=forms.NumberInput(attrs={'style': 'width: 5%'}))
     unit = forms.CharField(max_length=10)
-    ingredient = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}),
+    ingredient = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 100%'}),
                                  max_length=30)
 
 IngredientFormset = formset_factory(IngredientFormFields, extra=5)

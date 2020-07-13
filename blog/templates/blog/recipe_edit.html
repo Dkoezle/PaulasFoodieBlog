@@ -3,18 +3,65 @@
 {% block content %}
     <h2>Rezept erstellen/bearbeiten</h2>
      <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
-         {{ form.as_p }}
-         {{ ingredformset.management_form }}
-         <table>
-             {% for fsetform in ingredformset %}
-                <tr>
-                    {% for field in fsetform.visible_fields %}
-                         <td> {{ field.label_tag }} {{ field }} </td>
+         <div class="recipe-edit">
+             <p><span>{{ form.title.label_tag }}</span> {{ form.title }}</p>
+             <h4>{{ form.image.label_tag }}</h4>
+             <p>{{ form.image }}</p>
+             <p>
+                <table>
+                    <thead>
+                        <td>
+                            <span>Ernährungsform</span>
+                        </td>
+                        <td>
+                            <span>{{ form.cuisine.label_tag }}</span>
+                        </td>
+                    </thead>
+                    <tr>
+                        <td>
+                            {{ form.is_vegan.label_tag }} {{ form.is_vegan }}<br>
+                            {{ form.is_veggie.label_tag }} {{ form.is_veggie }}
+                        </td>
+                        <td>
+                            {{ form.cuisine }}
+                        </td>
+                    </tr>
+                </table>
+             </p>
+             <p>
+                <h4>{{ form.contained_allergen.label_tag }}</h4>
+                <table>
+                    {% for choice in form.contained_allergen %}
+                    <td>
+                        {{ choice }}
+                    </td>
                     {% endfor %}
-                    <td class="hidden">{{ fsetform.id }}</td>
-                </tr>
-             {% endfor %}
-         </table>
-          <button type="submit" class="btn btn-outline-dark">Speichern</button><br>
+                </table>
+             </p>
+             <p>
+                <h4>Zutaten:</h4>
+                {{ ingredformset.management_form }}
+                 <p>
+                     <table>
+                         {% for fsetform in ingredformset %}
+                            <tr>
+                                {% for field in fsetform.visible_fields %}
+                                    <td id="{% cycle 'amount-col' 'unit-col' 'ingredient-col' 'del-col' %}">
+                                        {{ field.label_tag }} {{ field }}
+                                    </td>
+                                {% endfor %}
+                                <td class="hidden">{{ fsetform.id }}</td>
+                            </tr>
+                         {% endfor %}
+                     </table>
+                 </p>
+                <input type="submit" class="btn btn-outline-dark", name="btn_addfields", value="Mehr Zutaten hinzufügen" /><br>
+             </p>
+             <p>
+                 <h4>{{ form.instruction.label_tag }}</h4>
+                {{ form.instruction }}
+             </p>
+         </div>
+         <button type="submit" class="btn btn-outline-dark", name="btn_submit">Speichern</button><br>
      </form>
 {% endblock %}

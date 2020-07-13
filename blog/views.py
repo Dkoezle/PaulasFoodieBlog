@@ -47,18 +47,39 @@ def recipe_edit(request, pk):
 
     if request.method == "POST":
         form = RecipeForm(request.POST, request.FILES or None, instance=recipe)
-        if form.is_valid():
-            print('form valid')
-            recipe = form.save(commit=False)
-            recipe.author = request.user
-            recipe.published_date = timezone.now()
-            recipe.save()
-            formset = IngredientFormset(request.POST, instance=recipe, initial=[{'id': ''}])
-            print(formset.errors)
-            if formset.is_valid():
-                formset.save()
-                return redirect('recipe_detail', pk=recipe.pk)
+        print('tag1')
+        if 'btn_submit' in request.POST:
+            print('tag2')
+            if form.is_valid():
+                print('tag3')
+                recipe = form.save(commit=False)
+                recipe.author = request.user
+                recipe.published_date = timezone.now()
+                recipe.save()
+                formset = IngredientFormset(request.POST, instance=recipe, initial=[{'id': ''}])
+                if formset.is_valid():
+                    print('tag4')
+                    formset.save()
+                    return redirect('recipe_detail', pk=recipe.pk)
+        else:
+            print('tag5')
+            if 'btn_addfields' in request.POST:
+                print('tag6')
+                print(form.errors)
+                if form.is_valid():
+                    print('tag7')
+                    recipe = form.save(commit=False)
+                    recipe.author = request.user
+                    recipe.published_date = timezone.now()
+                    #recipe.save()
+                    formset = IngredientFormset(request.POST, instance=recipe, initial=[{'id': ''}])
+                    print(formset.errors)
+                    if formset.is_valid():
+                        print('tag8')
+                        formset.save()
+                        return redirect('recipe_edit', pk=recipe.pk)
     else:
+        print('tag9')
         form = RecipeForm(instance=recipe)
         formset = IngredientFormset(instance=recipe)
         context = {'form': form,

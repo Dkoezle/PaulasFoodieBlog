@@ -8,8 +8,8 @@ from multiselectfield import MultiSelectField
 class Recipe(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="images", blank=True)
+    title = models.CharField("Rezeptname", max_length=200)
+    image = models.ImageField("Bild hinzufügen (optional)", upload_to="images", blank=True)
     is_vegan = models.BooleanField("Vegan", default=False)
     is_veggie = models.BooleanField("Vegetarisch", default=False)
     cuisine_types = (
@@ -20,7 +20,7 @@ class Recipe(models.Model):
         ('EUR', 'Europäische Küche'),
         ('AME', 'Amerikanische Küche'),
         ('SUA', 'Südamerikanische Küche'),)
-    cuisine = models.CharField(
+    cuisine = models.CharField("Kategorie",
         max_length=30, choices=cuisine_types, default='DEF')
     allergen_types = (
         ("NA", "Keine"),
@@ -30,8 +30,8 @@ class Recipe(models.Model):
         ("fish", "Fisch"),
         ("egg", "Hühnereier"),
     )
-    contained_allergen = MultiSelectField(choices=allergen_types)
-    instruction = models.TextField()
+    contained_allergen = MultiSelectField("enthaltene Allergene", choices=allergen_types)
+    instruction = models.TextField("Zubereitung")
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
