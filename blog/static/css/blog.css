@@ -228,6 +228,11 @@ body{
     margin: auto;
     object-fit: cover;
     object-position: center;
-    height: 500px;
+    height: 400px;
     width: 100%;
+}
+
+.recipe_detail{
+    width: 70%;
+    margin: auto;
 }
