@@ -215,8 +215,8 @@ body{
 
 .list-image {
     float:left;
-    max-width: 245px;
-    max-height: 300px;
+    max-width: 300px;
+    height: auto;
     padding-right: 20px;
     position: relative;
 }
