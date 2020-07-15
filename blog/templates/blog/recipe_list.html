@@ -23,13 +23,14 @@
     <div class="recipe">
         {% for recipe in recipes %}
             <div class="properties">
-                {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" onerror="this.style.display='none'" class="list-image" />
-                {% endif %}
                 <h6>{% if recipe.is_vegan and recipe.is_veggie %} Vegan, Vegetarisch
                     {% elif recipe.is_vegan %} Vegan
                     {% elif recipe.is_veggie %} Vegetarisch
                 {% endif %}</h6>
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" onerror="this.style.display='none'" class="list-image" />
+                {% endif %}
+
                 <h2><a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.title }}</a></h2>
                 <h4>KATEGORIE</h4> {{ recipe.get_cuisine_display }}<br>
                 <h4>ENTHALTENE ALLERGENE</h4> {{ recipe.contained_allergen }}<br>
